@@ -24,7 +24,6 @@ public class GraphQLProvider {
 
     @Autowired
     UserDataFetcher userDataFetcher;
-    //GraphQLDataFetchers graphQLDataFetchers;
 
     private GraphQL graphQL;
 
@@ -67,6 +66,8 @@ public class GraphQLProvider {
                 .type(newTypeWiring("Query")
                         .dataFetcher("getAllUsers", userDataFetcher.getAllUsers())
                         .dataFetcher("getUserByEmail", userDataFetcher.getUserByEmail()))
+                .type(newTypeWiring("Mutation")
+                        .dataFetcher("createUser", userDataFetcher.createUser()))
                 .build();
 
     }
