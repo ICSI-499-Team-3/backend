@@ -3,6 +3,10 @@ type Query {
     getUserByEmail(email: String): User
 }
 
+type Mutation {
+    createUser(email: String!): User!
+}
+
 type User {
     id: ID!
     email: String
