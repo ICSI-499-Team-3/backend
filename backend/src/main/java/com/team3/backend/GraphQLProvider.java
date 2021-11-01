@@ -2,6 +2,7 @@ package com.team3.backend;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
+import com.team3.backend.datafetchers.log.LogDataFetcher;
 import com.team3.backend.datafetchers.user.UserDataFetcher;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
@@ -24,6 +25,9 @@ public class GraphQLProvider {
 
     @Autowired
     UserDataFetcher userDataFetcher;
+
+    @Autowired
+    LogDataFetcher logDataFetcher;
 
     private GraphQL graphQL;
 
@@ -65,9 +69,14 @@ public class GraphQLProvider {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query")
                         .dataFetcher("getAllUsers", userDataFetcher.getAllUsers())
-                        .dataFetcher("getUserByEmail", userDataFetcher.getUserByEmail()))
+                        .dataFetcher("getUserByEmail", userDataFetcher.getUserByEmail())
+                        .dataFetcher("getAllLogs", logDataFetcher.getAllLogs())
+                        .dataFetcher("getLogsByUserEmail", logDataFetcher.getLogsByEmail())
+                )
                 .type(newTypeWiring("Mutation")
-                        .dataFetcher("createUser", userDataFetcher.createUser()))
+                        .dataFetcher("createUser", userDataFetcher.createUser())
+                        .dataFetcher("createLog", logDataFetcher.createLog())
+                )
                 .build();
 
     }

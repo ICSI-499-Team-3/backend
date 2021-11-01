@@ -1,14 +1,29 @@
 type Query {
     getAllUsers: [User!]!
-    getUserByEmail(email: String): User
+    getUserByEmail(email: String!): User
+
+    getAllLogs: [Log!]!
+    getLogsByUserEmail(email: String!): [Log!]!
 }
 
 type Mutation {
     createUser(email: String!): User!
+    createLog(datetimeOfActivity: Int!, notes: String, categories: [String!], mood: [String!]): Log!
 }
 
 type User {
     id: ID!
     email: String
+}
+
+type Log {
+    id: ID!
+
+    # Unix ts representing datetime
+    datetimeOfActivity: Int!
+
+    notes: String
+    categories: [String!]
+    mood: [String!]
 }
 
