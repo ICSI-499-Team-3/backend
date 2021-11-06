@@ -7,13 +7,17 @@ type Query {
 }
 
 type Mutation {
-    CreateUser(email: String!): User!
-    CreateLog(dateTimeOfActivity: Float!, notes: String, categories: [String!], mood: [String!]): Log!
+    CreateUser(input: UserInput!): User!
+    CreateLog(input: LogInput!): Log!
 }
 
 type User {
     id: ID!
-    email: String
+    email: String!
+}
+
+input UserInput {
+    email: String!
 }
 
 type Log {
@@ -27,3 +31,9 @@ type Log {
     mood: [String!]
 }
 
+input LogInput {
+    dateTimeOfActivity: Float!
+    notes: String
+    categories: [String!]
+    mood: [String!]
+}

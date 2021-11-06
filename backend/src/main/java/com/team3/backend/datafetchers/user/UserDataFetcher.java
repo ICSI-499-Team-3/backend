@@ -6,6 +6,8 @@ import graphql.schema.DataFetcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 public class UserDataFetcher {
 
@@ -29,7 +31,9 @@ public class UserDataFetcher {
 
     public DataFetcher createUser() {
         return dataFetchingEnvironment -> {
-            String email = dataFetchingEnvironment.getArgument("email");
+            Map<String, Object> input = dataFetchingEnvironment.getArgument("input");
+
+            String email = (String) input.get("email");
             User user = new User(null, email);
             return userRepository.save(user);
         };

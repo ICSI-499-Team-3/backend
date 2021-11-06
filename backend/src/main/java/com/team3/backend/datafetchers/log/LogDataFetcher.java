@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class LogDataFetcher {
@@ -31,15 +32,16 @@ public class LogDataFetcher {
 
     public DataFetcher createLog() {
         return dataFetchingEnvironment -> {
-            double dateTimeOfActivity = dataFetchingEnvironment.getArgument("dateTimeOfActivity");
-            String notes = dataFetchingEnvironment.getArgument("notes");
-            List<String> categories = dataFetchingEnvironment.getArgument("categories");
-            List<String> mood = dataFetchingEnvironment.getArgument("mood");
+            Map<String, Object> input = dataFetchingEnvironment.getArgument("input");
+
+            double dateTimeOfActivity = (Double) input.get("dateTimeOfActivity");
+            String notes = (String) input.get("notes");
+            List<String> categories = (List<String>) input.get("categories");
+            List<String> mood = (List<String>) input.get("mood");
 
             Log log = new Log(null, dateTimeOfActivity, notes, categories, mood);
             return logRepository.save(log);
         };
     }
-
 
 }
