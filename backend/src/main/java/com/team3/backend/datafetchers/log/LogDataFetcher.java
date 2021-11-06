@@ -31,12 +31,12 @@ public class LogDataFetcher {
 
     public DataFetcher createLog() {
         return dataFetchingEnvironment -> {
-            int datetimeOfActivity = dataFetchingEnvironment.getArgument("datetimeOfActivity");
+            int dateTimeOfActivity = dataFetchingEnvironment.getArgument("dateTimeOfActivity");
             String notes = dataFetchingEnvironment.getArgument("notes");
             List<String> categories = dataFetchingEnvironment.getArgument("categories");
             List<String> mood = dataFetchingEnvironment.getArgument("mood");
 
-            Log log = new Log(null, datetimeOfActivity, notes, categories, mood);
+            Log log = new Log(null, dateTimeOfActivity, notes, categories, mood);
             return logRepository.save(log);
         };
     }

@@ -8,7 +8,7 @@ type Query {
 
 type Mutation {
     createUser(email: String!): User!
-    createLog(datetimeOfActivity: Int!, notes: String, categories: [String!], mood: [String!]): Log!
+    createLog(dateTimeOfActivity: Int!, notes: String, categories: [String!], mood: [String!]): Log!
 }
 
 type User {
@@ -19,8 +19,8 @@ type User {
 type Log {
     id: ID!
 
-    # Unix ts representing datetime
-    datetimeOfActivity: Int!
+    # Unix ts since epoch representing the date and time the activity took place
+    dateTimeOfActivity: Int!
 
     notes: String
     categories: [String!]

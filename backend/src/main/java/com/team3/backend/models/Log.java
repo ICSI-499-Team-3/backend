@@ -11,7 +11,7 @@ public class Log {
     @Id
     private String id;
 
-    private int datetimeOfActivity;
+    private int dateTimeOfActivity;
 
     private String notes;
 
@@ -19,10 +19,10 @@ public class Log {
 
     private List<String> mood;
 
-    public Log(String id, int datetimeOfActivity, String notes, List<String> categories, List<String> mood) {
+    public Log(String id, int dateTimeOfActivity, String notes, List<String> categories, List<String> mood) {
         super();
         this.id = id;
-        this.datetimeOfActivity = datetimeOfActivity;
+        this.dateTimeOfActivity = dateTimeOfActivity;
         this.notes = notes;
         this.categories = categories;
         this.mood = mood;
@@ -36,12 +36,12 @@ public class Log {
         this.id = id;
     }
 
-    public int getDateimeOfActivity() {
-        return datetimeOfActivity;
+    public int getDateTimeOfActivity() {
+        return dateTimeOfActivity;
     }
 
-    public void setDateimeOfActivity(int dateimeOfActivity) {
-        this.datetimeOfActivity = dateimeOfActivity;
+    public void setDateTimeOfActivity(int dateTimeOfActivity) {
+        this.dateTimeOfActivity = dateTimeOfActivity;
     }
 
     public String getNotes() {
