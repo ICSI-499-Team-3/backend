@@ -68,14 +68,14 @@ public class GraphQLProvider {
 
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query")
-                        .dataFetcher("getAllUsers", userDataFetcher.getAllUsers())
-                        .dataFetcher("getUserByEmail", userDataFetcher.getUserByEmail())
-                        .dataFetcher("getAllLogs", logDataFetcher.getAllLogs())
-                        .dataFetcher("getLogsByUserEmail", logDataFetcher.getLogsByEmail())
+                        .dataFetcher("GetAllUsers", userDataFetcher.getAllUsers())
+                        .dataFetcher("GetUserByEmail", userDataFetcher.getUserByEmail())
+                        .dataFetcher("GetAllLogs", logDataFetcher.getAllLogs())
+                        .dataFetcher("GetLogsByUserEmail", logDataFetcher.getLogsByEmail())
                 )
                 .type(newTypeWiring("Mutation")
-                        .dataFetcher("createUser", userDataFetcher.createUser())
-                        .dataFetcher("createLog", logDataFetcher.createLog())
+                        .dataFetcher("CreateUser", userDataFetcher.createUser())
+                        .dataFetcher("CreateLog", logDataFetcher.createLog())
                 )
                 .build();
 
