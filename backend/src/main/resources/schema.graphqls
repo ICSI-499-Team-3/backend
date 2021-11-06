@@ -20,7 +20,7 @@ type Log {
     id: ID!
 
     # Unix ts since epoch representing the date and time the activity took place
-    dateTimeOfActivity: Int!
+    dateTimeOfActivity: Float!
 
     notes: String
     categories: [String!]
