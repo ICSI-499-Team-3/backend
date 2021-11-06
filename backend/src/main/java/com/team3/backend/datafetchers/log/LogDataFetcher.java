@@ -31,7 +31,7 @@ public class LogDataFetcher {
 
     public DataFetcher createLog() {
         return dataFetchingEnvironment -> {
-            int dateTimeOfActivity = dataFetchingEnvironment.getArgument("dateTimeOfActivity");
+            double dateTimeOfActivity = dataFetchingEnvironment.getArgument("dateTimeOfActivity");
             String notes = dataFetchingEnvironment.getArgument("notes");
             List<String> categories = dataFetchingEnvironment.getArgument("categories");
             List<String> mood = dataFetchingEnvironment.getArgument("mood");
