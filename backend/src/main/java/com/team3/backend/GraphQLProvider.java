@@ -70,6 +70,7 @@ public class GraphQLProvider {
                 .type(newTypeWiring("Query")
                         .dataFetcher("GetAllUsers", userDataFetcher.getAllUsers())
                         .dataFetcher("GetUserByEmail", userDataFetcher.getUserByEmail())
+                        .dataFetcher("GetUserByEmailAndPassword", userDataFetcher.getUserByEmailAndPassword())
                         .dataFetcher("GetAllLogs", logDataFetcher.getAllLogs())
                         .dataFetcher("GetLogsByUserEmail", logDataFetcher.getLogsByEmail())
                 )

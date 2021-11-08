@@ -35,6 +35,19 @@ public class UserDataFetcher {
         };
     }
 
+    public DataFetcher<User> getUserByEmailAndPassword() {
+        return dataFetchingEnvironment -> {
+            Map<String, Object> input = dataFetchingEnvironment.getArgument("input");
+
+            String email = (String) input.get("email");
+            String password = (String) input.get("password");
+
+            // Hashing logic somewhere in here
+
+            return userRepository.findByEmailAndPassword(email, password);
+        };
+    }
+
     public DataFetcher createUser() {
         return dataFetchingEnvironment -> {
             Map<String, Object> input = dataFetchingEnvironment.getArgument("input");

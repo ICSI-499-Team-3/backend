@@ -9,5 +9,8 @@ public interface UserRepository extends MongoRepository<User, String> {
     @Query("{email:'?0'}")
     User findByEmail(String email);
 
+    @Query("{email:'?0', password:'?1'}")
+    User findByEmailAndPassword(String email, String password);
+
     long count();
 }

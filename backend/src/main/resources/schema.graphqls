@@ -1,6 +1,7 @@
 type Query {
     GetAllUsers: [User!]!
     GetUserByEmail(email: String!): User
+    GetUserByEmailAndPassword(input: UserLoginInput!): User
 
     GetAllLogs: [Log!]!
     GetLogsByUserEmail(email: String!): [Log!]!
@@ -40,4 +41,9 @@ input LogInput {
     notes: String
     categories: [String!]
     mood: [String!]
+}
+
+input UserLoginInput {
+    email: String!
+    password: String!
 }
