@@ -5,11 +5,15 @@ type Query {
 
     GetAllLogs: [Log!]!
     GetLogsByUserEmail(email: String!): [Log!]!
+
+    GetMetricsByUserId(userId: String!): [Metric!]!
 }
 
 type Mutation {
     CreateUser(input: UserInput!): User!
     CreateLog(input: LogInput!): Log!
+    CreateMetric(input: MetricInput!): Metric!
+    CreateMeasurement(input: MeasurementInput!): Measurement!
 }
 
 type User {
@@ -41,6 +45,34 @@ input LogInput {
     notes: String
     categories: [String!]
     mood: [String!]
+}
+
+type Metric {
+    id: ID!
+    userId: String!
+    title: String!
+    xUnits: String!
+    yUnits: String!
+    data: [Measurement!]
+}
+
+input MetricInput {
+    userId: String!
+    title: String!
+    xUnits: String!
+    yUnits: String!
+}
+
+type Measurement {
+    id: ID!
+    x: Float!
+    y: Float!
+}
+
+input MeasurementInput {
+    metricId: String!
+    x: Float!
+    y: Float!
 }
 
 input UserLoginInput {
