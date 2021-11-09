@@ -4,7 +4,7 @@ type Query {
     GetUserByEmailAndPassword(input: UserLoginInput!): User
 
     GetAllLogs: [Log!]!
-    GetLogsByUserEmail(email: String!): [Log!]!
+    GetLogsByUserId(userId: String!): [Log!]!
 
     GetMetricsByUserId(userId: String!): [Metric!]!
 }
@@ -31,6 +31,7 @@ input UserInput {
 
 type Log {
     id: ID!
+    userId: String!
 
     # Unix ts since epoch representing the date and time the activity took place
     dateTimeOfActivity: Float!
@@ -41,6 +42,7 @@ type Log {
 }
 
 input LogInput {
+    userId: String!
     dateTimeOfActivity: Float!
     notes: String
     categories: [String!]
