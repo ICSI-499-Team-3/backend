@@ -31,11 +31,12 @@ public class MeasurementDataFetcher {
             double x = (Double) input.get("x");
             double y = (Double) input.get("y");
 
+            Metric metric = metricRepository.findById(metricId).orElseThrow();
+
             Measurement measurement = new Measurement(null, x, y);
             Measurement savedMeasurement = measurementRepository.save(measurement);
 
             // update the metric with the measurement
-            Metric metric = metricRepository.findById(metricId).orElseThrow();
             List<Measurement> data = metric.getData();
             data.add(savedMeasurement);
             metric.setData(data);
