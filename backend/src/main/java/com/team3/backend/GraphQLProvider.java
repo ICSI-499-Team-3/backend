@@ -80,7 +80,7 @@ public class GraphQLProvider {
                         .dataFetcher("GetUserByEmail", userDataFetcher.getUserByEmail())
                         .dataFetcher("GetUserByEmailAndPassword", userDataFetcher.getUserByEmailAndPassword())
                         .dataFetcher("GetAllLogs", logDataFetcher.getAllLogs())
-                        .dataFetcher("GetLogsByUserEmail", logDataFetcher.getLogsByEmail())
+                        .dataFetcher("GetLogsByUserId", logDataFetcher.getLogsByUserId())
                         .dataFetcher("GetMetricsByUserId", metricDataFetcher.getMetricsByUserId())
                 )
                 .type(newTypeWiring("Mutation")

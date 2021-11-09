@@ -1,7 +1,9 @@
 package com.team3.backend.datafetchers.log;
 
 import com.team3.backend.models.Log;
+import com.team3.backend.models.User;
 import com.team3.backend.repositories.LogRepository;
+import com.team3.backend.repositories.UserRepository;
 import graphql.schema.DataFetcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,10 +25,10 @@ public class LogDataFetcher {
         return dataFetchingEnvironment -> logRepository.findAll();
     }
 
-    public DataFetcher getLogsByEmail() {
+    public DataFetcher getLogsByUserId() {
         return dataFetchingEnvironment -> {
-            String email = dataFetchingEnvironment.getArgument("email");
-            return logRepository.findByEmail(email);
+            String userId = dataFetchingEnvironment.getArgument("userId");
+            return logRepository.findByUserId(userId);
         };
     }
 
@@ -34,12 +36,13 @@ public class LogDataFetcher {
         return dataFetchingEnvironment -> {
             Map<String, Object> input = dataFetchingEnvironment.getArgument("input");
 
+            String userId = (String) input.get("userId");
             double dateTimeOfActivity = (Double) input.get("dateTimeOfActivity");
             String notes = (String) input.get("notes");
             List<String> categories = (List<String>) input.get("categories");
             List<String> mood = (List<String>) input.get("mood");
 
-            Log log = new Log(null, dateTimeOfActivity, notes, categories, mood);
+            Log log = new Log(null, userId, dateTimeOfActivity, notes, categories, mood);
             return logRepository.save(log);
         };
     }

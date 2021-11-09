@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface LogRepository extends MongoRepository<Log, String> {
 
-    @Query("{email:'?0'}")
-    List<Log> findByEmail(String email);
+    @Query("{userId:'?0'}")
+    List<Log> findByUserId(String userId);
 }
