@@ -3,6 +3,8 @@ package com.team3.backend;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import com.team3.backend.datafetchers.log.LogDataFetcher;
+import com.team3.backend.datafetchers.measurement.MeasurementDataFetcher;
+import com.team3.backend.datafetchers.metric.MetricDataFetcher;
 import com.team3.backend.datafetchers.user.UserDataFetcher;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
@@ -28,6 +30,12 @@ public class GraphQLProvider {
 
     @Autowired
     LogDataFetcher logDataFetcher;
+
+    @Autowired
+    MetricDataFetcher metricDataFetcher;
+
+    @Autowired
+    MeasurementDataFetcher measurementDataFetcher;
 
     private GraphQL graphQL;
 
@@ -73,12 +81,14 @@ public class GraphQLProvider {
                         .dataFetcher("GetUserByEmailAndPassword", userDataFetcher.getUserByEmailAndPassword())
                         .dataFetcher("GetAllLogs", logDataFetcher.getAllLogs())
                         .dataFetcher("GetLogsByUserEmail", logDataFetcher.getLogsByEmail())
+                        .dataFetcher("GetMetricsByUserId", metricDataFetcher.getMetricsByUserId())
                 )
                 .type(newTypeWiring("Mutation")
                         .dataFetcher("CreateUser", userDataFetcher.createUser())
                         .dataFetcher("CreateLog", logDataFetcher.createLog())
+                        .dataFetcher("CreateMetric", metricDataFetcher.createMetric())
+                        .dataFetcher("CreateMeasurement", measurementDataFetcher.createMeasurement())
                 )
                 .build();
-
     }
 }
