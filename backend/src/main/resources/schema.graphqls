@@ -69,6 +69,7 @@ type Measurement {
     id: ID!
     x: Float!
     y: Float!
+    dateTimeMeasured: Float!
 }
 
 input MeasurementInput {
