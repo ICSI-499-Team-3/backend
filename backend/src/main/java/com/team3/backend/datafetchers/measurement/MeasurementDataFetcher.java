@@ -28,8 +28,8 @@ public class MeasurementDataFetcher {
             Map<String, Object> input = dataFetchingEnvironment.getArgument("input");
 
             String metricId = (String) input.get("metricId");
-            double x = (Double) input.get("x");
-            double y = (Double) input.get("y");
+            String x = (String) input.get("x");
+            String y = (String) input.get("y");
 
             Metric metric = metricRepository.findById(metricId).orElseThrow();
 

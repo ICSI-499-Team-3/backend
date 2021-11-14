@@ -9,11 +9,11 @@ public class Measurement {
     @Id
     private String id;
 
-    private double x;
+    private String x;
 
-    private double y;
+    private String y;
 
-    public Measurement(String id, double x, double y) {
+    public Measurement(String id, String x, String y) {
         super();
         this.id = id;
         this.x = x;
@@ -28,19 +28,19 @@ public class Measurement {
         this.id = id;
     }
 
-    public double getX() {
+    public String getX() {
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(String x) {
         this.x = x;
     }
 
-    public double getY() {
+    public String getY() {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(String y) {
         this.y = y;
     }
 }

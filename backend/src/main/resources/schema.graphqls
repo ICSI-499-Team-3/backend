@@ -67,15 +67,16 @@ input MetricInput {
 
 type Measurement {
     id: ID!
-    x: Float!
-    y: Float!
+    x: String!
+    y: String!
     dateTimeMeasured: Float!
 }
 
 input MeasurementInput {
     metricId: String!
-    x: Float!
-    y: Float!
+    x: String!
+    y: String!
+    dateTimeMeasured: Float!
 }
 
 input UserLoginInput {
