@@ -56,4 +56,33 @@ public class MeasurementDataFetcher {
             return metric.getData();
         };
     }
+
+    public DataFetcher<Measurement> updateMeasurement() {
+        return dataFetchingEnvironment -> {
+            Map<String, Object> input = dataFetchingEnvironment.getArgument("input");
+            String id = (String) input.get("id");
+            String metricId = (String) input.get("metricId");
+            String x = (String) input.get("x");
+            String y = (String) input.get("y");
+            Double dateTimeMeasured = (Double) input.get("dateTimeMeasured");
+
+            Metric metric = metricRepository.findById(metricId).orElseThrow();
+
+            Measurement measurement = measurementRepository.findById(id).orElseThrow();
+
+            measurement.setX(x);
+            measurement.setY(y);
+            measurement.setDateTimeMeasured(dateTimeMeasured);
+
+            List<Measurement> data = metric.getData();
+            for (int i = 0; i < data.size(); i++) {
+                if (data.get(i).getId().equals(id)) {
+                    data.set(i, measurement);
+                }
+            }
+            metricRepository.save(metric);
+
+            return measurementRepository.save(measurement);
+        };
+    }
 }

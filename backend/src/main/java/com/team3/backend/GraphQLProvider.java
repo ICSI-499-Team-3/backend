@@ -90,6 +90,7 @@ public class GraphQLProvider {
                         .dataFetcher("CreateLog", logDataFetcher.createLog())
                         .dataFetcher("CreateMetric", metricDataFetcher.createMetric())
                         .dataFetcher("CreateMeasurement", measurementDataFetcher.createMeasurement())
+                        .dataFetcher("UpdateMeasurement", measurementDataFetcher.updateMeasurement())
                 )
                 .build();
     }

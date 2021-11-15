@@ -16,7 +16,8 @@ type Mutation {
     CreateUser(input: UserInput!): User!
     CreateLog(input: LogInput!): Log!
     CreateMetric(input: MetricInput!): Metric!
-    CreateMeasurement(input: MeasurementInput!): Measurement!
+    CreateMeasurement(input: CreateMeasurementInput!): Measurement!
+    UpdateMeasurement(input: UpdateMeasurementInput!): Measurement!
 }
 
 type User {
@@ -75,7 +76,15 @@ type Measurement {
     dateTimeMeasured: Float!
 }
 
-input MeasurementInput {
+input UpdateMeasurementInput {
+    id: String!
+    metricId: String!
+    x: String!
+    y: String!
+    dateTimeMeasured: Float!
+}
+
+input CreateMeasurementInput {
     metricId: String!
     x: String!
     y: String!
