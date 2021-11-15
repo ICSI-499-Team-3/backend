@@ -43,4 +43,13 @@ public class MetricDataFetcher {
             return metricRepository.save(metric);
         };
     }
+
+    public DataFetcher<Metric> getMetricById() {
+        return dataFetchingEnvironment -> {
+            String metricId = dataFetchingEnvironment.getArgument("metricId");
+
+            Metric metric = metricRepository.findById(metricId).orElseThrow();
+            return metric;
+        };
+    }
 }
