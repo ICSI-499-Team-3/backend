@@ -8,6 +8,8 @@ type Query {
 
     GetMetricsByUserId(userId: String!): [Metric!]!
     GetMetricById(metricId: String!): Metric!
+
+    GetMeasurementsByMetricId(metricId: String!): [Measurement!]!
 }
 
 type Mutation {

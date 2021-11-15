@@ -46,4 +46,14 @@ public class MeasurementDataFetcher {
             return savedMeasurement;
         };
     }
+
+    public DataFetcher<List<Measurement>> getMeasurementsByMetricId() {
+        return dataFetchingEnvironment -> {
+            String metricId = dataFetchingEnvironment.getArgument("metricId");
+
+            Metric metric = metricRepository.findById(metricId).orElseThrow();
+
+            return metric.getData();
+        };
+    }
 }
