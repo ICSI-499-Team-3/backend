@@ -13,11 +13,14 @@ public class Measurement {
 
     private String y;
 
-    public Measurement(String id, String x, String y) {
+    private double dateTimeMeasured;
+
+    public Measurement(String id, String x, String y, double dateTimeMeasured) {
         super();
         this.id = id;
         this.x = x;
         this.y = y;
+        this.dateTimeMeasured = dateTimeMeasured;
     }
 
     public String getId() {
@@ -42,5 +45,13 @@ public class Measurement {
 
     public void setY(String y) {
         this.y = y;
+    }
+
+    public double getDateTimeMeasured() {
+        return dateTimeMeasured;
+    }
+
+    public void setDateTimeMeasured(double dateTimeMeasured) {
+        this.dateTimeMeasured = dateTimeMeasured;
     }
 }

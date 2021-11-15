@@ -30,10 +30,11 @@ public class MeasurementDataFetcher {
             String metricId = (String) input.get("metricId");
             String x = (String) input.get("x");
             String y = (String) input.get("y");
+            Double dateTimeMeasured = (Double) input.get("dateTimeMeasured");
 
             Metric metric = metricRepository.findById(metricId).orElseThrow();
 
-            Measurement measurement = new Measurement(null, x, y);
+            Measurement measurement = new Measurement(null, x, y, dateTimeMeasured);
             Measurement savedMeasurement = measurementRepository.save(measurement);
 
             // update the metric with the measurement
