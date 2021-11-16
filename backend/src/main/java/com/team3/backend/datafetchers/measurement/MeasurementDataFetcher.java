@@ -8,8 +8,7 @@ import graphql.schema.DataFetcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class MeasurementDataFetcher {
@@ -83,6 +82,32 @@ public class MeasurementDataFetcher {
             metricRepository.save(metric);
 
             return measurementRepository.save(measurement);
+        };
+    }
+
+    public DataFetcher<List<Measurement>> deleteMeasurement() {
+        return dataFetchingEnvironment -> {
+            String metricId = dataFetchingEnvironment.getArgument("metricId");
+            List<String> input = dataFetchingEnvironment.getArgument("input");
+
+            // delete nested Measurements from Metric
+            Metric metric = metricRepository.findById(metricId).orElseThrow();
+            List<Measurement> data = metric.getData();
+            data.removeIf(measurement -> input.contains(measurement.getId()));
+            metric.setData(data);
+            metricRepository.save(metric);
+
+            // delete from Measurement collection
+            List<Measurement> deletedMeasurements = new ArrayList<>();
+            for (String id : input) {
+                Optional<Measurement> measurement = measurementRepository.findById(id);
+                if (measurement.isPresent()) {
+                    deletedMeasurements.add(measurement.get());
+                    measurementRepository.deleteById(id);
+                }
+            }
+
+            return deletedMeasurements;
         };
     }
 }

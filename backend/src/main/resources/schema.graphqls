@@ -18,6 +18,7 @@ type Mutation {
     CreateMetric(input: MetricInput!): Metric!
     CreateMeasurement(input: CreateMeasurementInput!): Measurement!
     UpdateMeasurement(input: UpdateMeasurementInput!): Measurement!
+    DeleteMeasurement(metricId: String!, input: [String!]!): [Measurement!]!
 }
 
 type User {

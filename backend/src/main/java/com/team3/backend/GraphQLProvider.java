@@ -91,6 +91,7 @@ public class GraphQLProvider {
                         .dataFetcher("CreateMetric", metricDataFetcher.createMetric())
                         .dataFetcher("CreateMeasurement", measurementDataFetcher.createMeasurement())
                         .dataFetcher("UpdateMeasurement", measurementDataFetcher.updateMeasurement())
+                        .dataFetcher("DeleteMeasurement", measurementDataFetcher.deleteMeasurement())
                 )
                 .build();
     }
