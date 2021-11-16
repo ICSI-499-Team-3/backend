@@ -14,8 +14,12 @@ type Query {
 
 type Mutation {
     CreateUser(input: UserInput!): User!
+
     CreateLog(input: LogInput!): Log!
+
     CreateMetric(input: MetricInput!): Metric!
+    DeleteMetric(metricId: String!): Metric!
+
     CreateMeasurement(input: CreateMeasurementInput!): Measurement!
     UpdateMeasurement(input: UpdateMeasurementInput!): Measurement!
     DeleteMeasurement(metricId: String!, input: [String!]!): [Measurement!]!
