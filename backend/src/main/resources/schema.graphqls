@@ -7,13 +7,22 @@ type Query {
     GetLogsByUserId(userId: String!): [Log!]!
 
     GetMetricsByUserId(userId: String!): [Metric!]!
+    GetMetricById(metricId: String!): Metric!
+
+    GetMeasurementsByMetricId(metricId: String!): [Measurement!]!
 }
 
 type Mutation {
     CreateUser(input: UserInput!): User!
+
     CreateLog(input: LogInput!): Log!
+
     CreateMetric(input: MetricInput!): Metric!
-    CreateMeasurement(input: MeasurementInput!): Measurement!
+    DeleteMetric(metricId: String!): Metric!
+
+    CreateMeasurement(input: CreateMeasurementInput!): Measurement!
+    UpdateMeasurement(input: UpdateMeasurementInput!): Measurement!
+    DeleteMeasurement(metricId: String!, input: [String!]!): [Measurement!]!
 }
 
 type User {
@@ -67,14 +76,24 @@ input MetricInput {
 
 type Measurement {
     id: ID!
-    x: Float!
-    y: Float!
+    x: String!
+    y: String!
+    dateTimeMeasured: Float!
 }
 
-input MeasurementInput {
+input UpdateMeasurementInput {
+    id: String!
     metricId: String!
-    x: Float!
-    y: Float!
+    x: String!
+    y: String!
+    dateTimeMeasured: Float!
+}
+
+input CreateMeasurementInput {
+    metricId: String!
+    x: String!
+    y: String!
+    dateTimeMeasured: Float!
 }
 
 input UserLoginInput {

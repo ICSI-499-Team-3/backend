@@ -2,6 +2,7 @@ package com.team3.backend.datafetchers.metric;
 
 import com.team3.backend.models.Measurement;
 import com.team3.backend.models.Metric;
+import com.team3.backend.repositories.MeasurementRepository;
 import com.team3.backend.repositories.MetricRepository;
 import graphql.schema.DataFetcher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,12 @@ public class MetricDataFetcher {
 
     private MetricRepository metricRepository;
 
+    private MeasurementRepository measurementRepository;
+
     @Autowired
-    public MetricDataFetcher(MetricRepository metricRepository) {
+    public MetricDataFetcher(MetricRepository metricRepository, MeasurementRepository measurementRepository) {
         this.metricRepository = metricRepository;
+        this.measurementRepository = measurementRepository;
     }
 
     public DataFetcher<List<Metric>> getMetricsByUserId() {
@@ -41,6 +45,28 @@ public class MetricDataFetcher {
             Metric metric = new Metric(null, userId, title, xUnits, yUnits, data);
 
             return metricRepository.save(metric);
+        };
+    }
+
+    public DataFetcher<Metric> getMetricById() {
+        return dataFetchingEnvironment -> {
+            String metricId = dataFetchingEnvironment.getArgument("metricId");
+
+            Metric metric = metricRepository.findById(metricId).orElseThrow();
+            return metric;
+        };
+    }
+
+    public DataFetcher<Metric> deleteMetric() {
+        return dataFetchingEnvironment -> {
+            String metricId = dataFetchingEnvironment.getArgument("metricId");
+            Metric metric = metricRepository.findById(metricId).orElseThrow();
+            List<Measurement> data = metric.getData();
+            for (Measurement measurement : data) {
+                measurementRepository.deleteById(measurement.getId());
+            }
+            metricRepository.deleteById(metricId);
+            return metric;
         };
     }
 }

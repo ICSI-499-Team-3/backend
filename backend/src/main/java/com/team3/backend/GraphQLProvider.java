@@ -82,14 +82,17 @@ public class GraphQLProvider {
                         .dataFetcher("GetAllLogs", logDataFetcher.getAllLogs())
                         .dataFetcher("GetLogsByUserId", logDataFetcher.getLogsByUserId())
                         .dataFetcher("GetMetricsByUserId", metricDataFetcher.getMetricsByUserId())
+                        .dataFetcher("GetMetricById", metricDataFetcher.getMetricById())
+                        .dataFetcher("GetMeasurementsByMetricId", measurementDataFetcher.getMeasurementsByMetricId())
                 )
                 .type(newTypeWiring("Mutation")
                         .dataFetcher("CreateUser", userDataFetcher.createUser())
                         .dataFetcher("CreateLog", logDataFetcher.createLog())
                         .dataFetcher("CreateMetric", metricDataFetcher.createMetric())
+                        .dataFetcher("DeleteMetric", metricDataFetcher.deleteMetric())
                         .dataFetcher("CreateMeasurement", measurementDataFetcher.createMeasurement())
-                        .dataFetcher("getLogsByUserIdDelete", logDataFetcher.getLogsByUserIdDelete())
-
+                        .dataFetcher("UpdateMeasurement", measurementDataFetcher.updateMeasurement())
+                        .dataFetcher("DeleteMeasurement", measurementDataFetcher.deleteMeasurement())
                 )
                 .build();
     }
