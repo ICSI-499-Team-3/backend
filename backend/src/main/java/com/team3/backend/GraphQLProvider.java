@@ -90,6 +90,7 @@ public class GraphQLProvider {
                         .dataFetcher("UpdateUserName", userDataFetcher.updateUserName())
                         .dataFetcher("UpdateUserEmail", userDataFetcher.updateUserEmail())
                         .dataFetcher("UpdateUserPassword", userDataFetcher.updateUserPassword())
+                        .dataFetcher("UpdateUserPreExistingConditions", userDataFetcher.updateUserPreExistingConditions())
                         .dataFetcher("CreateLog", logDataFetcher.createLog())
                         .dataFetcher("CreateMetric", metricDataFetcher.createMetric())
                         .dataFetcher("DeleteMetric", metricDataFetcher.deleteMetric())

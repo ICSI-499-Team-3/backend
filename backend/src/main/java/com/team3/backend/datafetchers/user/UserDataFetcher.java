@@ -104,6 +104,22 @@ public class UserDataFetcher {
         };
     }
 
+    public DataFetcher<User> updateUserPreExistingConditions() {
+        return dataFetchingEnvironment -> {
+            String id = dataFetchingEnvironment.getArgument("id");
+            String conditions = dataFetchingEnvironment.getArgument("conditions");
+
+            User user = userRepository.findByUserId(id);
+
+            if(user == null)
+                throw new GraphQLException("No such user!");
+
+            user.setPreExistingConditions(conditions);
+
+            return userRepository.save(user);
+        };
+    }
+
     public DataFetcher<User> createUser() {
         return dataFetchingEnvironment -> {
             Map<String, Object> input = dataFetchingEnvironment.getArgument("input");

@@ -17,6 +17,8 @@ public class User {
 
     private String authToken;
 
+    private String preExistingConditions;
+
     public User(String id, String name, String email, String password, String authToken) {
         super();
         this.id = id;
@@ -24,6 +26,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.authToken = authToken;
+        this.preExistingConditions = "";
     }
 
     public String getId() {
@@ -64,5 +67,13 @@ public class User {
 
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
+    }
+
+    public String getPreExistingConditions() {
+        return preExistingConditions;
+    }
+
+    public void setPreExistingConditions(String preExistingConditions) {
+        this.preExistingConditions = preExistingConditions;
     }
 }

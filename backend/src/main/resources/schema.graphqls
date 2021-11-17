@@ -17,6 +17,7 @@ type Mutation {
     UpdateUserName(id: String!, name: String!): User!
     UpdateUserEmail(id: String!, email: String!): User!
     UpdateUserPassword(id: String!, currentPassword: String!, newPassword: String!): User!
+    UpdateUserPreExistingConditions(id: String!, conditions: String!): User!
 
     CreateLog(input: LogInput!): Log!
 
@@ -33,6 +34,7 @@ type User {
     name: String!
     email: String!
     authToken: String!
+    preExistingConditions: String
 }
 
 input UserInput {
