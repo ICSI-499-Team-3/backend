@@ -48,7 +48,23 @@ public class UserDataFetcher {
         };
     }
 
-    public DataFetcher createUser() {
+    public DataFetcher<User> updateUserName() {
+        return dataFetchingEnvironment -> {
+            String id = dataFetchingEnvironment.getArgument("id");
+            String name = dataFetchingEnvironment.getArgument("name");
+
+            User user = userRepository.findByUserId(id);
+
+            if(user == null)
+                throw new GraphQLException("No such user!");
+
+            user.setName(name);
+
+            return userRepository.save(user);
+        };
+    }
+
+    public DataFetcher<User> createUser() {
         return dataFetchingEnvironment -> {
             Map<String, Object> input = dataFetchingEnvironment.getArgument("input");
 
