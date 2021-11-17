@@ -16,6 +16,7 @@ type Mutation {
     CreateUser(input: UserInput!): User!
     UpdateUserName(id: String!, name: String!): User!
     UpdateUserEmail(id: String!, email: String!): User!
+    UpdateUserPassword(id: String!, currentPassword: String!, newPassword: String!): User!
 
     CreateLog(input: LogInput!): Log!
 

@@ -84,6 +84,26 @@ public class UserDataFetcher {
         };
     }
 
+    public DataFetcher<User> updateUserPassword() {
+        return dataFetchingEnvironment -> {
+            String id = dataFetchingEnvironment.getArgument("id");
+            String currentPassword = dataFetchingEnvironment.getArgument("currentPassword");
+            String newPassword = dataFetchingEnvironment.getArgument("newPassword");
+
+            User user = userRepository.findByUserId(id);
+
+            if(user == null)
+                throw new GraphQLException("No such user!");
+
+            if(!user.getPassword().equals(currentPassword))
+                throw new GraphQLException("Incorrect password");
+
+            user.setPassword(newPassword);
+
+            return userRepository.save(user);
+        };
+    }
+
     public DataFetcher<User> createUser() {
         return dataFetchingEnvironment -> {
             Map<String, Object> input = dataFetchingEnvironment.getArgument("input");
