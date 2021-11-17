@@ -15,6 +15,7 @@ type Query {
 type Mutation {
     CreateUser(input: UserInput!): User!
     UpdateUserName(id: String!, name: String!): User!
+    UpdateUserEmail(id: String!, email: String!): User!
 
     CreateLog(input: LogInput!): Log!
 
