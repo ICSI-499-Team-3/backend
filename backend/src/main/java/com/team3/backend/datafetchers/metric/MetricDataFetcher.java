@@ -79,4 +79,14 @@ public class MetricDataFetcher {
             return metric;
         };
     }
+
+    public DataFetcher<> sync() {
+        return dataFetchingEnvironment -> {
+            metricRepository.save(new Metric(null, user.getId(), "Heart Rate", "Time", "", new ArrayList<>()));
+            metricRepository.save(new Metric(null, user.getId(), "Blood Pressure Diastolic", "Time", "", new ArrayList<>()));
+            metricRepository.save(new Metric(null, user.getId(), "Blood Pressure Systolic", "Time", "", new ArrayList<>()));
+            metricRepository.save(new Metric(null, user.getId(), "Body Temperature", "Time", "", new ArrayList<>()));
+            metricRepository.save(new Metric(null, user.getId(), "Vo2 Max", "Time", "", new ArrayList<>()));
+        }
+    }
 }
