@@ -2,8 +2,10 @@ package com.team3.backend.datafetchers.metric;
 
 import com.team3.backend.models.Measurement;
 import com.team3.backend.models.Metric;
+import com.team3.backend.models.Share;
 import com.team3.backend.repositories.MeasurementRepository;
 import com.team3.backend.repositories.MetricRepository;
+import com.team3.backend.repositories.ShareRepository;
 import graphql.schema.DataFetcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,10 +21,13 @@ public class MetricDataFetcher {
 
     private MeasurementRepository measurementRepository;
 
+    private ShareRepository shareRepository;
+
     @Autowired
-    public MetricDataFetcher(MetricRepository metricRepository, MeasurementRepository measurementRepository) {
+    public MetricDataFetcher(MetricRepository metricRepository, MeasurementRepository measurementRepository, ShareRepository shareRepository) {
         this.metricRepository = metricRepository;
         this.measurementRepository = measurementRepository;
+        this.shareRepository = shareRepository;
     }
 
     public DataFetcher<List<Metric>> getMetricsByUserId() {
@@ -61,6 +66,11 @@ public class MetricDataFetcher {
         return dataFetchingEnvironment -> {
             String metricId = dataFetchingEnvironment.getArgument("metricId");
             Metric metric = metricRepository.findById(metricId).orElseThrow();
+
+            // delete share documents with this metric
+            List<Share> shares = shareRepository.findByDataId(metricId);
+            shares.forEach(share -> shareRepository.delete(share));
+
             List<Measurement> data = metric.getData();
             for (Measurement measurement : data) {
                 measurementRepository.deleteById(measurement.getId());
