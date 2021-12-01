@@ -19,6 +19,14 @@ type Query {
     GetSharesByDataId(id: String!): [Share!]!
     # get the users shared with a particular log or metric
     GetShareesByDataId(id: String!): [User!]!
+    # get the logs shared to a particular user
+    GetSharedLogsByShareeId(id: String!): [Log!]!
+    # get the metric shared to a particular user
+    GetSharedMetricsByShareeId(id: String!): [Metric!]!
+    # get all of the users that have shared their data to a particular user
+    GetSharersByShareeId(id: String!): [User!]!
+    # get logs shared by someone to someone else
+    GetLogsBySharerAndShareeId(sharerId: String!, shareeId: String!): [Log!]!
 }
 
 type Mutation {

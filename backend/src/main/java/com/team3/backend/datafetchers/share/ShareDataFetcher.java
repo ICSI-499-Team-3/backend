@@ -1,7 +1,11 @@
 package com.team3.backend.datafetchers.share;
 
+import com.team3.backend.models.Log;
+import com.team3.backend.models.Metric;
 import com.team3.backend.models.Share;
 import com.team3.backend.models.User;
+import com.team3.backend.repositories.LogRepository;
+import com.team3.backend.repositories.MetricRepository;
 import com.team3.backend.repositories.ShareRepository;
 import com.team3.backend.repositories.UserRepository;
 import graphql.GraphQLException;
@@ -9,9 +13,7 @@ import graphql.schema.DataFetcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -19,11 +21,15 @@ public class ShareDataFetcher {
 
     private ShareRepository shareRepository;
     private UserRepository userRepository;
+    private LogRepository logRepository;
+    private MetricRepository metricRepository;
 
     @Autowired
-    public ShareDataFetcher(ShareRepository shareRepository, UserRepository userRepository) {
+    public ShareDataFetcher(ShareRepository shareRepository, UserRepository userRepository, LogRepository logRepository, MetricRepository metricRepository) {
         this.shareRepository = shareRepository;
         this.userRepository = userRepository;
+        this.logRepository = logRepository;
+        this.metricRepository = metricRepository;
     }
 
     public DataFetcher<List<Share>> getSharesBySharerId() {
@@ -102,6 +108,79 @@ public class ShareDataFetcher {
             Share share = shareRepository.findByDataIdAndShareeId(dataId, shareeId);
             shareRepository.delete(share);
             return share;
+        };
+    }
+
+    public DataFetcher<List<Log>> getSharedLogsByShareeId() {
+        return dataFetchingEnvironment -> {
+            String shareeId = dataFetchingEnvironment.getArgument("id");
+            List<Share> shares = shareRepository.findByShareeId(shareeId);
+
+            // should try to replace this with a mongodb aggregation
+            List<Log> logs = shares.stream()
+                    .map(share -> logRepository.findById(share.getDataId()).orElse(null))
+                    .filter(Objects::isNull)
+                    .collect(Collectors.toList());
+            return logs;
+        };
+    }
+
+    public DataFetcher<List<Metric>> getSharedMetricsByShareeId() {
+        return dataFetchingEnvironment -> {
+            String shareeId = dataFetchingEnvironment.getArgument("id");
+            List<Share> shares = shareRepository.findByShareeId(shareeId);
+
+            // should try to replace this with a mongodb aggregation
+            List<Metric> metrics = shares.stream()
+                    .map(share -> metricRepository.findById(share.getDataId()).orElse(null))
+                    .filter(Objects::isNull)
+                    .collect(Collectors.toList());
+            return metrics;
+        };
+    }
+
+    public DataFetcher<List<User>> getSharersByShareeId() {
+        return dataFetchingEnvironment -> {
+            String shareeId = dataFetchingEnvironment.getArgument("id");
+            List<Share> shares = shareRepository.findByShareeId(shareeId);
+
+            System.out.println(shareeId);
+            System.out.println(shares);
+
+//            List<User> users = shares.stream()
+//                    .map(share -> userRepository.findById(share.getSharerId()).orElse(null))
+//                    .filter(Objects::isNull)
+//                    .collect(Collectors.toList());
+
+            Set<String> userIds = new HashSet<>();
+            List<User> users = new ArrayList<>();
+            for (Share share : shares) {
+                User user = userRepository.findById(share.getSharerId()).get();
+                if (!userIds.contains(user.getId())) {
+                    userIds.add(user.getId());
+                    users.add(user);
+                }
+            }
+
+            return users;
+        };
+    }
+
+    public DataFetcher<List<Log>> getLogsBySharerAndShareeId() {
+        return dataFetchingEnvironment -> {
+            String sharerId = dataFetchingEnvironment.getArgument("sharerId");
+            String shareeId = dataFetchingEnvironment.getArgument("shareeId");
+
+            List<Share> shares = shareRepository.findLogsBySharerAndShareeId(sharerId, shareeId);
+
+            List<Log> logs = new ArrayList<>();
+
+            for (Share share : shares) {
+                Log log = logRepository.findById(share.getDataId()).get();
+                logs.add(log);
+            }
+
+            return logs;
         };
     }
 }
