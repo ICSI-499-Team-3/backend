@@ -96,6 +96,7 @@ public class GraphQLProvider {
                         .dataFetcher("GetSharedMetricsByShareeId", shareDataFetcher.getSharedMetricsByShareeId())
                         .dataFetcher("GetSharersByShareeId", shareDataFetcher.getSharersByShareeId())
                         .dataFetcher("GetLogsBySharerAndShareeId", shareDataFetcher.getLogsBySharerAndShareeId())
+                        .dataFetcher("GetMetricsBySharerAndShareeId", shareDataFetcher.getMetricsBySharerAndShareeId())
                 )
                 .type(newTypeWiring("Mutation")
                         .dataFetcher("CreateUser", userDataFetcher.createUser())

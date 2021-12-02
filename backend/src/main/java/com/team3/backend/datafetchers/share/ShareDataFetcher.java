@@ -183,4 +183,22 @@ public class ShareDataFetcher {
             return logs;
         };
     }
+
+    public DataFetcher<List<Metric>> getMetricsBySharerAndShareeId() {
+        return dataFetchingEnvironment -> {
+            String sharerId = dataFetchingEnvironment.getArgument("sharerId");
+            String shareeId = dataFetchingEnvironment.getArgument("shareeId");
+
+            List<Share> shares = shareRepository.findMetricsBySharerAndShareeId(sharerId, shareeId);
+
+            List<Metric> metrics = new ArrayList<>();
+
+            for (Share share : shares) {
+                Metric metric = metricRepository.findById(share.getDataId()).get();
+                metrics.add(metric);
+            }
+
+            return metrics;
+        };
+    }
 }

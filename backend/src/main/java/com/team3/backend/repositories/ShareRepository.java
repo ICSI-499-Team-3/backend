@@ -22,4 +22,7 @@ public interface ShareRepository extends MongoRepository<Share, String> {
 
     @Query("{sharerId: '?0', shareeId: '?1', sharedLog: true}")
     List<Share> findLogsBySharerAndShareeId(String sharerId, String shareeId);
+
+    @Query("{sharerId: '?0', shareeId: '?1', sharedMetric: true}")
+    List<Share> findMetricsBySharerAndShareeId(String sharerId, String shareeId);
 }
