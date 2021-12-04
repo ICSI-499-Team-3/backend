@@ -24,6 +24,8 @@ type Mutation {
     CreateMetric(input: MetricInput!): Metric!
     DeleteMetric(metricId: String!): Metric!
 
+    DeleteLog(id: String!): Log!
+
     CreateMeasurement(input: CreateMeasurementInput!): Measurement!
     UpdateMeasurement(input: UpdateMeasurementInput!): Measurement!
     DeleteMeasurement(metricId: String!, input: [String!]!): [Measurement!]!

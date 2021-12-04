@@ -47,21 +47,14 @@ public class LogDataFetcher {
         };
     }
 
-    public DataFetcher getLogsByUserIdDelete() {
+    public DataFetcher<Log> deleteLog() {
         return dataFetchingEnvironment -> {
-            Map<String, Object> input = dataFetchingEnvironment.getArgument("input");
+            String id = dataFetchingEnvironment.getArgument("id");
+            Log log = logRepository.findById(id).orElseThrow();
+            logRepository.deleteById(id);
 
-            String userId = (String) input.get("userId");
-            double dateTimeOfActivity = (Double) input.get("dateTimeOfActivity");
-            String notes = (String) input.get("notes");
-            List<String> categories = (List<String>) input.get("categories");
-            List<String> mood = (List<String>) input.get("mood");
-
-            Log log = new Log(null, userId, dateTimeOfActivity, notes, categories, mood);
-            return input.remove(log);
-
-           // return logRepository.save(log);
-            //return logRepository.deleteById();
+            return log;
         };
     }
 }
+
