@@ -5,6 +5,7 @@ import com.google.common.io.Resources;
 import com.team3.backend.datafetchers.log.LogDataFetcher;
 import com.team3.backend.datafetchers.measurement.MeasurementDataFetcher;
 import com.team3.backend.datafetchers.metric.MetricDataFetcher;
+import com.team3.backend.datafetchers.share.ShareDataFetcher;
 import com.team3.backend.datafetchers.user.UserDataFetcher;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
@@ -36,6 +37,9 @@ public class GraphQLProvider {
 
     @Autowired
     MeasurementDataFetcher measurementDataFetcher;
+
+    @Autowired
+    ShareDataFetcher shareDataFetcher;
 
     private GraphQL graphQL;
 
@@ -84,6 +88,15 @@ public class GraphQLProvider {
                         .dataFetcher("GetMetricsByUserId", metricDataFetcher.getMetricsByUserId())
                         .dataFetcher("GetMetricById", metricDataFetcher.getMetricById())
                         .dataFetcher("GetMeasurementsByMetricId", measurementDataFetcher.getMeasurementsByMetricId())
+                        .dataFetcher("GetSharesBySharerId", shareDataFetcher.getSharesBySharerId())
+                        .dataFetcher("GetSharesByShareeId", shareDataFetcher.getSharesByShareeId())
+                        .dataFetcher("GetSharesByDataId", shareDataFetcher.getSharesByDataId())
+                        .dataFetcher("GetShareesByDataId", shareDataFetcher.getShareesByDataId())
+                        .dataFetcher("GetSharedLogsByShareeId", shareDataFetcher.getSharedLogsByShareeId())
+                        .dataFetcher("GetSharedMetricsByShareeId", shareDataFetcher.getSharedMetricsByShareeId())
+                        .dataFetcher("GetSharersByShareeId", shareDataFetcher.getSharersByShareeId())
+                        .dataFetcher("GetLogsBySharerAndShareeId", shareDataFetcher.getLogsBySharerAndShareeId())
+                        .dataFetcher("GetMetricsBySharerAndShareeId", shareDataFetcher.getMetricsBySharerAndShareeId())
                 )
                 .type(newTypeWiring("Mutation")
                         .dataFetcher("CreateUser", userDataFetcher.createUser())
@@ -98,6 +111,8 @@ public class GraphQLProvider {
                         .dataFetcher("CreateMeasurement", measurementDataFetcher.createMeasurement())
                         .dataFetcher("UpdateMeasurement", measurementDataFetcher.updateMeasurement())
                         .dataFetcher("DeleteMeasurement", measurementDataFetcher.deleteMeasurement())
+                        .dataFetcher("CreateShare", shareDataFetcher.createShare())
+                        .dataFetcher("DeleteShare", shareDataFetcher.deleteShare())
                 )
                 .build();
     }

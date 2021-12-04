@@ -10,6 +10,25 @@ type Query {
     GetMetricById(metricId: String!): Metric!
 
     GetMeasurementsByMetricId(metricId: String!): [Measurement!]!
+
+    # get everything a user shared
+    GetSharesBySharerId(id: String!): [Share!]!
+    # get everything shared to a user
+    GetSharesByShareeId(id: String!): [Share!]!
+    # get every instance a particular log or metric was shared
+    GetSharesByDataId(id: String!): [Share!]!
+    # get the users shared with a particular log or metric
+    GetShareesByDataId(id: String!): [User!]!
+    # get the logs shared to a particular user
+    GetSharedLogsByShareeId(id: String!): [Log!]!
+    # get the metric shared to a particular user
+    GetSharedMetricsByShareeId(id: String!): [Metric!]!
+    # get all of the users that have shared their data to a particular user
+    GetSharersByShareeId(id: String!): [User!]!
+    # get logs shared by someone to someone else
+    GetLogsBySharerAndShareeId(sharerId: String!, shareeId: String!): [Log!]!
+    # get metrics shared by someone to someone else
+    GetMetricsBySharerAndShareeId(sharerId: String!, shareeId: String!): [Metric!]!
 }
 
 type Mutation {
@@ -29,6 +48,9 @@ type Mutation {
     CreateMeasurement(input: CreateMeasurementInput!): Measurement!
     UpdateMeasurement(input: UpdateMeasurementInput!): Measurement!
     DeleteMeasurement(metricId: String!, input: [String!]!): [Measurement!]!
+
+    CreateShare(input: ShareInput!): Share!
+    DeleteShare(input: DeleteShareInput): Share!
 }
 
 type User {
@@ -106,4 +128,36 @@ input CreateMeasurementInput {
 input UserLoginInput {
     email: String!
     password: String!
+}
+
+type Share {
+    id: ID!
+    shareeId: String!
+    sharerId: String!
+
+    # flags to represent whether the user shared a log or measurement
+    sharedLog: Boolean!
+    sharedMetric: Boolean!
+
+    # the id of the data (log or metric) shared
+    dataId: String!
+}
+
+input ShareInput {
+
+    sharerId: String!
+
+    shareeEmail: String!
+
+    # flags to represent whether the user shared a log or measurement
+    sharedLog: Boolean!
+    sharedMetric: Boolean!
+
+    # the id of the data (log or metric) shared
+    dataId: String!
+}
+
+input DeleteShareInput {
+    shareeId: String!
+    dataId: String!
 }
