@@ -113,6 +113,7 @@ public class GraphQLProvider {
                         .dataFetcher("DeleteMeasurement", measurementDataFetcher.deleteMeasurement())
                         .dataFetcher("CreateShare", shareDataFetcher.createShare())
                         .dataFetcher("DeleteShare", shareDataFetcher.deleteShare())
+                        .dataFetcher("Sync", metricDataFetcher.sync())
                 )
                 .build();
     }

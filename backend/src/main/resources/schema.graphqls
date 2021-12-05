@@ -51,6 +51,9 @@ type Mutation {
 
     CreateShare(input: ShareInput!): Share!
     DeleteShare(input: DeleteShareInput): Share!
+
+    # sync with external health services
+    Sync(input: SyncInput!): [Metric!]!
 }
 
 type User {
@@ -160,4 +163,23 @@ input ShareInput {
 input DeleteShareInput {
     shareeId: String!
     dataId: String!
+}
+
+input SyncInput {
+    userId: String!
+    metrics: [SyncMetricInput!]!
+}
+
+input SyncMetricInput {
+    userId: String!
+    title: String!
+    xUnits: String!
+    yUnits: String!
+    data: [SyncMeasurementInput!]!
+}
+
+input SyncMeasurementInput {
+    x: String!
+    y: String!
+    dateTimeMeasured: Float!
 }
