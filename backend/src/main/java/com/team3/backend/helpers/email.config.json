@@ -1,0 +1,7 @@
+{
+  "name": "Support Team",
+  "email": "email@email.com",
+  "password": "securepassword",
+  "host": "smtp host",
+  "port": "smtp port"
+}
