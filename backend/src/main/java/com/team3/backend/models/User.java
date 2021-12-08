@@ -19,6 +19,10 @@ public class User {
 
     private String preExistingConditions;
 
+    private String passwordResetCode;
+
+    private String passwordResetTime;
+
     public User(String id, String name, String email, String password, String authToken) {
         super();
         this.id = id;
@@ -75,5 +79,21 @@ public class User {
 
     public void setPreExistingConditions(String preExistingConditions) {
         this.preExistingConditions = preExistingConditions;
+    }
+
+    public String getPasswordResetCode() {
+        return passwordResetCode;
+    }
+
+    public void setPasswordResetCode(String passwordResetCode) {
+        this.passwordResetCode = passwordResetCode;
+    }
+
+    public String getPasswordResetTime() {
+        return passwordResetTime;
+    }
+
+    public void setPasswordResetTime(String passwordResetTime) {
+        this.passwordResetTime = passwordResetTime;
     }
 }
