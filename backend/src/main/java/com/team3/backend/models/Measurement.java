@@ -3,6 +3,9 @@ package com.team3.backend.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * @author Tony Comanzo (entire class)
+ */
 @Document(collection = "measurements")
 public class Measurement {
 

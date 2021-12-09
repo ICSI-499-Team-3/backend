@@ -23,6 +23,9 @@ import java.net.URL;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
+/**
+ * @author Tony Comanzo, Habib Affinnih, Emma Wirth, Lauren Velez
+ */
 @Component
 public class GraphQLProvider {
 
@@ -48,6 +51,10 @@ public class GraphQLProvider {
         return graphQL;
     }
 
+    /**
+     * @author Tony Comanzo 
+     * @throws IOException
+     */
     @PostConstruct
     public void init() throws IOException {
         URL url = Resources.getResource("schema.graphqls");
@@ -58,6 +65,7 @@ public class GraphQLProvider {
 
     /**
      * Creates the GraphQLSchema instance and wires in code to fetch data
+     * @author Tony Comanzo 
      * @param sdl
      * @return a GraphQLSchema
      */
@@ -74,6 +82,7 @@ public class GraphQLProvider {
 
     /**
      * Uses graphQLDataFetchers bean to register DataFetchers
+     * @author Tony Comanzo, Habib Affinnih, Lauren Velez, Emma Wirth
      * @return
      */
     private RuntimeWiring buildWiring() {

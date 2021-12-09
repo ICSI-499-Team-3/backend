@@ -1,9 +1,7 @@
 package com.team3.backend.datafetchers.log;
 
 import com.team3.backend.models.Log;
-import com.team3.backend.models.User;
 import com.team3.backend.repositories.LogRepository;
-import com.team3.backend.repositories.UserRepository;
 import graphql.schema.DataFetcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,6 +9,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Tony Comanzo, Lauren Velez, Emma Wirth
+ */
 @Component
 public class LogDataFetcher {
 
@@ -21,10 +22,16 @@ public class LogDataFetcher {
         this.logRepository = logRepository;
     }
 
+    /**
+     * @author Tony Comanzo
+     */
     public DataFetcher getAllLogs() {
         return dataFetchingEnvironment -> logRepository.findAll();
     }
 
+    /**
+     * @author Tony Comanzo
+     */
     public DataFetcher getLogsByUserId() {
         return dataFetchingEnvironment -> {
             String userId = dataFetchingEnvironment.getArgument("userId");
@@ -32,6 +39,9 @@ public class LogDataFetcher {
         };
     }
 
+    /**
+     * @author Tony Comanzo 
+     */
     public DataFetcher createLog() {
         return dataFetchingEnvironment -> {
             Map<String, Object> input = dataFetchingEnvironment.getArgument("input");
@@ -47,6 +57,9 @@ public class LogDataFetcher {
         };
     }
 
+    /**
+     * @author Emma Wirth, Lauren Velez
+     */
     public DataFetcher<Log> deleteLog() {
         return dataFetchingEnvironment -> {
             String id = dataFetchingEnvironment.getArgument("id");

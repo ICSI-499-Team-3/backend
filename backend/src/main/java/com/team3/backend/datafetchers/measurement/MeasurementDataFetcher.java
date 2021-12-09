@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+/**
+ * @author Tony Comanzo (entire class)
+ */
 @Component
 public class MeasurementDataFetcher {
 

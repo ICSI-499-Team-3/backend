@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * @author Tony Comanzo (entire class)
+ */
 @Component
 public class MetricDataFetcher {
 

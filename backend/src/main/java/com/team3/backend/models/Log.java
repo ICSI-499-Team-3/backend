@@ -5,6 +5,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+/**
+ * @author Tony Comanzo (entire class)
+ */
 @Document(collection = "logs")
 public class Log {
 

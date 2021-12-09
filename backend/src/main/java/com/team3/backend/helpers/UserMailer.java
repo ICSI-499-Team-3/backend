@@ -13,6 +13,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * @author Habib Affinnih (entire class)
+ */
 public class UserMailer {
     private static final HashMap<String, String> emailConfig = new HashMap<>();
 

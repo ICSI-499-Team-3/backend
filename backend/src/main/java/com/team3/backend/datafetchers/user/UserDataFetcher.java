@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * @author Habib Affinnih, Tony Comanzo
+ */
 @Component
 public class UserDataFetcher {
 
@@ -28,10 +31,16 @@ public class UserDataFetcher {
         this.userRepository = userRepository;
     }
 
+    /**
+     * @author Tony Comanzo 
+     */
     public DataFetcher<List<User>> getAllUsers() {
         return dataFetchingEnvironment -> userRepository.findAll();
     }
 
+    /**
+     * @author Tony Comanzo 
+     */
     public DataFetcher<User> getUserByEmail() {
         return dataFetchingEnvironment -> {
             String email = dataFetchingEnvironment.getArgument("email");
@@ -39,6 +48,9 @@ public class UserDataFetcher {
         };
     }
 
+    /**
+     * @author Habib Affinnih
+     */
     public DataFetcher<User> getUserByEmailAndPassword() {
         return dataFetchingEnvironment -> {
             Map<String, Object> input = dataFetchingEnvironment.getArgument("input");
@@ -52,6 +64,9 @@ public class UserDataFetcher {
         };
     }
 
+    /**
+     * @author Habib Affinnih
+     */
     public DataFetcher<User> updateUserName() {
         return dataFetchingEnvironment -> {
             String id = dataFetchingEnvironment.getArgument("id");
@@ -68,6 +83,9 @@ public class UserDataFetcher {
         };
     }
 
+    /**
+     * @author Habib Affinnih
+     */
     public DataFetcher<User> updateUserEmail() {
         return dataFetchingEnvironment -> {
             String id = dataFetchingEnvironment.getArgument("id");
@@ -88,6 +106,9 @@ public class UserDataFetcher {
         };
     }
 
+    /**
+     * @author Habib Affinnih
+     */
     public DataFetcher<User> updateUserPassword() {
         return dataFetchingEnvironment -> {
             String id = dataFetchingEnvironment.getArgument("id");
@@ -108,6 +129,9 @@ public class UserDataFetcher {
         };
     }
 
+    /**
+     * @author Habib Affinnih
+     */
     public DataFetcher<User> updateUserPreExistingConditions() {
         return dataFetchingEnvironment -> {
             String id = dataFetchingEnvironment.getArgument("id");
@@ -124,6 +148,9 @@ public class UserDataFetcher {
         };
     }
 
+    /**
+     * @author Habib Affinnih, Tony Comanzo 
+     */
     public DataFetcher<User> createUser() {
         return dataFetchingEnvironment -> {
             Map<String, Object> input = dataFetchingEnvironment.getArgument("input");
@@ -143,6 +170,9 @@ public class UserDataFetcher {
         };
     }
 
+    /**
+     * @author Habib Affinnih
+     */
     public DataFetcher<Boolean> resetUserPassword() {
         return dataFetchingEnvironment -> {
             String email = dataFetchingEnvironment.getArgument("email");
@@ -160,6 +190,9 @@ public class UserDataFetcher {
         };
     }
 
+    /**
+     * @author Habib Affinnih
+     */
     public DataFetcher<Boolean> sendPasswordResetCode() {
         return dataFetchingEnvironment -> {
             String email = dataFetchingEnvironment.getArgument("email");
@@ -187,6 +220,9 @@ public class UserDataFetcher {
         };
     }
 
+    /**
+     * @author Habib Affinnih
+     */
     public DataFetcher<Boolean> verifyPasswordResetCode() {
         return dataFetchingEnvironment -> {
             String email = dataFetchingEnvironment.getArgument("email");
@@ -228,6 +264,14 @@ public class UserDataFetcher {
         };
     }
 
+    /**
+     * @author Habib Afinnih
+     * @param email
+     * @param name
+     * @param passwordResetCode
+     * @param validUser
+     * @return
+     */
     private Boolean sendPasswordResetEmail(String email, String name, String passwordResetCode, boolean validUser) {
         if (!validUser) {
             try {
@@ -250,6 +294,10 @@ public class UserDataFetcher {
         return true;
     }
 
+    /**
+     * @author Habib Affinnih
+     * @return
+     */
     private static String generateNewToken() {
         byte[] randomBytes = new byte[24];
         secureRandom.nextBytes(randomBytes);

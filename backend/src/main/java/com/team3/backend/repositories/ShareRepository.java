@@ -6,6 +6,9 @@ import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
 
+/**
+ * @author Tony Comanzo 
+ */
 public interface ShareRepository extends MongoRepository<Share, String> {
 
     @Query("{sharerId:'?0'}")

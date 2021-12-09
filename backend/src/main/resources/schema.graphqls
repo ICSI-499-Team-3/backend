@@ -1,3 +1,5 @@
+# Authors: Tony, Habib, Emma, Lauren
+
 type Query {
     GetAllUsers: [User!]!
     GetUserByEmail(email: String!): User
